@@ -5,7 +5,7 @@ import com.codeassay.gitrestapi.models.GetLastCommitResponse;
 import com.codeassay.gitrestapi.models.GitTreesResponse;
 
 public interface GitServices {
-    GetLastCommitResponse getLastCommit();
+    GetLastCommitResponse getLastCommit(String uri);
     GitTreesResponse getTreeBySha(String sha);
     Blob getBlobBySha(String sha);
 }

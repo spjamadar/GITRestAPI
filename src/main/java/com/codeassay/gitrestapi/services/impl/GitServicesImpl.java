@@ -17,22 +17,25 @@ import java.util.Base64;
 
 @Component
 public class GitServicesImpl implements GitServices {
+
+    private String token="Rocky@ridhi88";
+
     @Autowired
     RestTemplate restTemplate;
 
     @Override
-    public GetLastCommitResponse getLastCommit() {
-        return restTemplate.exchange(AppConstants.GITLATESTCOMMITURI, HttpMethod.GET, new HttpEntity<>(createHeaders("sarala.jitm@gmail.com","a31ceb98119a549023a93f178ceb08b142184659")), GetLastCommitResponse.class).getBody();
+    public GetLastCommitResponse getLastCommit(String uri) {
+        return restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(createHeaders("sarala.jitm@gmail.com",token)), GetLastCommitResponse.class).getBody();
     }
 
     @Override
-    public GitTreesResponse getTreeBySha(String sha) {
-        return restTemplate.exchange(AppConstants.GITTREEURI+sha, HttpMethod.GET, new HttpEntity<>(createHeaders("sarala.jitm@gmail.com","a31ceb98119a549023a93f178ceb08b142184659")), GitTreesResponse.class).getBody();
+    public GitTreesResponse getTreeBySha(String uri) {
+        return restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(createHeaders("sarala.jitm@gmail.com",token)), GitTreesResponse.class).getBody();
     }
 
     @Override
-    public Blob getBlobBySha(String sha) {
-        return restTemplate.exchange(AppConstants.GITBLOBURI+sha, HttpMethod.GET, new HttpEntity<>(createHeaders("sarala.jitm@gmail.com","a31ceb98119a549023a93f178ceb08b142184659")), Blob.class).getBody();
+    public Blob getBlobBySha(String uri) {
+        return restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(createHeaders("sarala.jitm@gmail.com",token)), Blob.class).getBody();
     }
 
     HttpHeaders createHeaders(String username, String password){
