@@ -14,4 +14,5 @@ public interface GitServices {
     CommitDetail commit(CommitRequest request,String uri) throws JsonProcessingException;
     BaseCommitResponse push(String sha, String uri);
     BaseCommitResponse saveOrUpdate(GitPushRequest request) throws JsonProcessingException;
+    CommitDetail getCommitDetail(String uri);
 }

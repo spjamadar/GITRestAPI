@@ -41,12 +41,13 @@ public class APIController {
         return gitServices.getBaseTree(AppConstants.GITHOST+user+"/"+repo+"/"+AppConstants.COMMITDETAILS+sha);
     }
 
-    @PostMapping("/saveupdate")
+    @PostMapping(value="/saveupdate", consumes = "application/json", produces = "application/json")
     public BaseCommitResponse saveOrUpdateRepo(@RequestBody GitPushRequest request){
         try {
             return gitServices.saveOrUpdate(request);
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 }
