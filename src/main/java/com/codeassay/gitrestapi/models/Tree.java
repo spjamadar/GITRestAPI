@@ -10,4 +10,5 @@ public class Tree {
     private String sha;
     private String size;
     private String url;
+    private String content;
 }

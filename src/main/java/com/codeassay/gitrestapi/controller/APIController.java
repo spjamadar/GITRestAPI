@@ -1,16 +1,12 @@
 package com.codeassay.gitrestapi.controller;
 
-import com.codeassay.gitrestapi.models.Blob;
-import com.codeassay.gitrestapi.models.GetLastCommitResponse;
-import com.codeassay.gitrestapi.models.GitTreesResponse;
+import com.codeassay.gitrestapi.models.*;
 import com.codeassay.gitrestapi.services.GitServices;
 import com.codeassay.gitrestapi.util.AppConstants;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -26,7 +22,7 @@ public class APIController {
     }
 
     @GetMapping("/{user}/{repo}/git/refs/heads/{branch}")
-    public GetLastCommitResponse latestcommit(@PathVariable String user, @PathVariable String repo, @PathVariable String branch){
+    public BaseCommitResponse latestcommit(@PathVariable String user, @PathVariable String repo, @PathVariable String branch){
         return gitServices.getLastCommit(AppConstants.GITHOST+user+"/"+repo+"/git/refs/heads/"+branch);
     }
 
@@ -40,4 +36,17 @@ public class APIController {
         return gitServices.getBlobBySha(AppConstants.GITHOST+user+"/"+repo+"/"+AppConstants.GITBLOBURI+sha);
     }
 
+    @GetMapping("/{user}/{repo}/basetree/{sha}")
+    public BaseTree getBaseTree(@PathVariable String user, @PathVariable String repo, @PathVariable String sha){
+        return gitServices.getBaseTree(AppConstants.GITHOST+user+"/"+repo+"/"+AppConstants.COMMITDETAILS+sha);
+    }
+
+    @PostMapping("/saveupdate")
+    public BaseCommitResponse saveOrUpdateRepo(@RequestBody GitPushRequest request){
+        try {
+            return gitServices.saveOrUpdate(request);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
 }

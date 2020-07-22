@@ -1,0 +1,12 @@
+package com.codeassay.gitrestapi.models;
+
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+public class GitPushRequest {
+    private String repo;
+    private List<Tree> tree;
+    private String message;
+}

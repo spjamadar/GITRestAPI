@@ -1,11 +1,17 @@
 package com.codeassay.gitrestapi.services;
 
-import com.codeassay.gitrestapi.models.Blob;
-import com.codeassay.gitrestapi.models.GetLastCommitResponse;
-import com.codeassay.gitrestapi.models.GitTreesResponse;
+import com.codeassay.gitrestapi.models.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import java.util.List;
 
 public interface GitServices {
-    GetLastCommitResponse getLastCommit(String uri);
-    GitTreesResponse getTreeBySha(String sha);
-    Blob getBlobBySha(String sha);
+    BaseCommitResponse getLastCommit(String uri);
+    GitTreesResponse getTreeBySha(String uri);
+    Blob getBlobBySha(String uri);
+    BaseTree getBaseTree(String uri);
+    GitTreesResponse createNewTreeFromBase(CreateTreeRequest request,String uri) throws JsonProcessingException;
+    CommitDetail commit(CommitRequest request,String uri) throws JsonProcessingException;
+    BaseCommitResponse push(String sha, String uri);
+    BaseCommitResponse saveOrUpdate(GitPushRequest request) throws JsonProcessingException;
 }

@@ -5,4 +5,5 @@ final public class AppConstants {
     public static final String GITLATESTCOMMITURI = GITHOST+"git/refs/heads/{branch}/";
     public static final String GITTREEURI = "git/trees/";
     public static final String GITBLOBURI = "git/blobs/";
+    public static final String COMMITDETAILS = "git/commits/";
 }
